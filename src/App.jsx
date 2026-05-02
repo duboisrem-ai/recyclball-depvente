@@ -513,7 +513,7 @@ export default function App() {
               <div className="invoice-line"><span>TVA 20%</span><span>{fmt(tva)}</span></div>
               <div className="invoice-line total-line"><span>Total TTC à payer</span><span>{fmt(toRecyclball)}</span></div>
               <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 8 }}>
-                Virement : IBAN FR76 1820 6003 6665 0481 7117 056 — BIC AGRIFRPP882
+                Virement : IBAN FR76 1670 6050 6654 0169 6828 821 — BIC AGRIFRPP867
               </div>
             </div>
           </div>
@@ -543,7 +543,7 @@ export default function App() {
                 <div className="invoice-line"><span>CA total TTC réalisé</span><span><strong>{fmt(caClub)}</strong></span></div>
                 <div className="invoice-line"><span>Vous conservez (25%)</span><span style={{ color: "var(--amber)", fontWeight: 600 }}>{fmt(clubKeeps)}</span></div>
                 <div className="invoice-line total-line"><span>À payer à Recyclball</span><span>{fmt(toRecyclball)}</span></div>
-                <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 8 }}>IBAN FR76 1820 6003 6665 0481 7117 056</div>
+                <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 8 }}>IBAN FR76 1670 6050 6654 0169 6828 821 — BIC AGRIFRPP867</div>
               </div>
               <button className="btn btn-outline" onClick={resetForm}>Nouvelle déclaration</button>
             </div>
