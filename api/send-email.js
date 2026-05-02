@@ -25,51 +25,33 @@ function generateInvoiceHTML(data) {
 <title>Facture Recyclball — ${month}</title></head>
 <body style="margin:0;padding:0;background:#F7F9F5;font-family:'Helvetica Neue',Arial,sans-serif;">
 <div style="max-width:680px;margin:40px auto;background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
-
-  <!-- Header -->
-  <div style="background:#2D6A4F;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;">
-    <div>
-      <div style="font-size:24px;font-weight:800;color:white;letter-spacing:-0.5px;">Recycl<span style="color:#74C69D;">ball</span></div>
-      <div style="color:rgba(255,255,255,0.7);font-size:13px;margin-top:4px;">20 allée des Pivoines, 59700 Marcq-en-Barœul</div>
-      <div style="color:rgba(255,255,255,0.7);font-size:13px;">SIREN : 540065240</div>
-    </div>
-    <div style="text-align:right;">
-      <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);color:white;font-size:13px;font-weight:600;padding:6px 16px;border-radius:20px;">FACTURE</div>
-      <div style="color:rgba(255,255,255,0.85);font-size:13px;margin-top:8px;">N° ${invoiceNum}</div>
-      <div style="color:rgba(255,255,255,0.7);font-size:12px;">${new Date().toLocaleDateString("fr-FR")}</div>
-    </div>
+  <div style="background:#2D6A4F;padding:32px 40px;">
+    <div style="font-size:24px;font-weight:800;color:white;">Recyclball</div>
+    <div style="color:rgba(255,255,255,0.7);font-size:13px;margin-top:4px;">20 allée des Pivoines, 59700 Marcq-en-Barœul</div>
+    <div style="color:rgba(255,255,255,0.7);font-size:13px;">SIRET : 10222347600015</div>
+    <div style="color:rgba(255,255,255,0.85);font-size:13px;margin-top:8px;">Facture N° ${invoiceNum} — ${new Date().toLocaleDateString("fr-FR")}</div>
   </div>
-
-  <!-- Club info -->
   <div style="padding:28px 40px;border-bottom:1px solid #DDE8E2;background:#F7F9F5;">
-    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:#7A9188;margin-bottom:6px;">Facturé à</div>
     <div style="font-size:18px;font-weight:700;color:#1B2D24;">${clubName}</div>
     ${clubEmail ? `<div style="font-size:14px;color:#7A9188;">${clubEmail}</div>` : ""}
-    <div style="margin-top:8px;font-size:13px;color:#7A9188;">Période : <strong style="color:#1B2D24;">${month}</strong></div>
+    <div style="font-size:13px;color:#7A9188;margin-top:8px;">Période : <strong style="color:#1B2D24;">${month}</strong></div>
   </div>
-
-  <!-- Products table -->
   <div style="padding:28px 40px;">
-    <div style="font-size:15px;font-weight:700;color:#2D6A4F;margin-bottom:16px;">Détail des ventes</div>
     <table style="width:100%;border-collapse:collapse;">
-      <thead>
-        <tr style="background:#F7F9F5;">
-          <th style="padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:#7A9188;font-weight:600;">Réf.</th>
-          <th style="padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:#7A9188;font-weight:600;">Produit</th>
-          <th style="padding:10px 12px;text-align:center;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:#7A9188;font-weight:600;">Qté</th>
-          <th style="padding:10px 12px;text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:#7A9188;font-weight:600;">PV TTC</th>
-          <th style="padding:10px 12px;text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:#7A9188;font-weight:600;">Total TTC</th>
-        </tr>
-      </thead>
+      <thead><tr style="background:#F7F9F5;">
+        <th style="padding:10px 12px;text-align:left;font-size:11px;color:#7A9188;">Réf.</th>
+        <th style="padding:10px 12px;text-align:left;font-size:11px;color:#7A9188;">Produit</th>
+        <th style="padding:10px 12px;text-align:center;font-size:11px;color:#7A9188;">Qté</th>
+        <th style="padding:10px 12px;text-align:right;font-size:11px;color:#7A9188;">PV TTC</th>
+        <th style="padding:10px 12px;text-align:right;font-size:11px;color:#7A9188;">Total TTC</th>
+      </tr></thead>
       <tbody>${rows}</tbody>
     </table>
   </div>
-
-  <!-- Totals -->
-  <div style="margin:0 40px 28px;background:linear-gradient(135deg,#F0FAF4,#E8F5E9);border:1.5px solid #D8F3DC;border-radius:14px;padding:24px;">
+  <div style="margin:0 40px 28px;background:#F0FAF4;border:1.5px solid #D8F3DC;border-radius:14px;padding:24px;">
     <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
       <span style="font-size:14px;color:#7A9188;">CA total TTC réalisé</span>
-      <span style="font-size:14px;font-weight:600;color:#1B2D24;">${fmt(totalTTC)}</span>
+      <span style="font-size:14px;font-weight:600;">${fmt(totalTTC)}</span>
     </div>
     <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
       <span style="font-size:14px;color:#7A9188;">Part conservée par le club (25%)</span>
@@ -77,34 +59,28 @@ function generateInvoiceHTML(data) {
     </div>
     <div style="border-top:1px solid #D8F3DC;margin:12px 0;"></div>
     <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-      <span style="font-size:14px;color:#7A9188;">Montant HT dû à Recyclball</span>
-      <span style="font-size:14px;color:#1B2D24;">${fmt(toRecyclballHT)}</span>
+      <span style="font-size:14px;color:#7A9188;">Montant HT</span>
+      <span style="font-size:14px;">${fmt(toRecyclballHT)}</span>
     </div>
     <div style="display:flex;justify-content:space-between;margin-bottom:12px;">
       <span style="font-size:14px;color:#7A9188;">TVA 20%</span>
-      <span style="font-size:14px;color:#1B2D24;">${fmt(tva)}</span>
+      <span style="font-size:14px;">${fmt(tva)}</span>
     </div>
     <div style="display:flex;justify-content:space-between;background:white;padding:14px 16px;border-radius:10px;">
-      <span style="font-size:16px;font-weight:700;color:#2D6A4F;">Total TTC à payer à Recyclball</span>
+      <span style="font-size:16px;font-weight:700;color:#2D6A4F;">Total TTC à payer</span>
       <span style="font-size:16px;font-weight:800;color:#2D6A4F;">${fmt(toRecyclball)}</span>
     </div>
   </div>
-
-  <!-- Payment info -->
   <div style="margin:0 40px 40px;padding:20px;background:#F7F9F5;border-radius:12px;border:1px solid #DDE8E2;">
     <div style="font-size:13px;font-weight:600;color:#2D6A4F;margin-bottom:8px;">Coordonnées bancaires</div>
-    <div style="font-size:13px;color:#7A9188;">Titulaire : <strong style="color:#1B2D24;">Rémi Dubois</strong></div>
-    <div style="font-size:13px;color:#7A9188;">IBAN : <strong style="color:#1B2D24;">FR76 1820 6003 6665 0481 7117 056</strong></div>
-    <div style="font-size:13px;color:#7A9188;">BIC : <strong style="color:#1B2D24;">AGRIFRPP882</strong> — Crédit Agricole</div>
+    <div style="font-size:13px;color:#7A9188;">Titulaire : <strong style="color:#1B2D24;">S.A.R.L. RECYCLBALL</strong></div>
+    <div style="font-size:13px;color:#7A9188;">IBAN : <strong style="color:#1B2D24;">FR76 1670 6050 6654 0169 6828 821</strong></div>
+    <div style="font-size:13px;color:#7A9188;">BIC : <strong style="color:#1B2D24;">AGRIFRPP867</strong> — Crédit Agricole Nord de France</div>
     <div style="font-size:12px;color:#F4A261;margin-top:8px;font-weight:600;">Échéance de paiement : 5 jours</div>
   </div>
-
-  <!-- Footer -->
   <div style="background:#2D6A4F;padding:20px 40px;text-align:center;">
-    <div style="color:rgba(255,255,255,0.7);font-size:12px;">Merci pour votre confiance et votre rigueur 🏉</div>
-    <div style="color:rgba(255,255,255,0.5);font-size:11px;margin-top:4px;">www.recyclball.fr · contact@recyclball.fr</div>
+    <div style="color:rgba(255,255,255,0.7);font-size:12px;">Merci pour votre confiance 🏉 — www.recyclball.fr</div>
   </div>
-
 </div>
 </body>
 </html>`;
@@ -112,43 +88,24 @@ function generateInvoiceHTML(data) {
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
-
   const { clubName, clubEmail, invoiceNum, totalTTC, toRecyclball, clubKeeps, toRecyclballHT, tva, quantities, products, month } = req.body;
-
   const html = generateInvoiceHTML({ clubName, clubEmail, invoiceNum, totalTTC, toRecyclball, clubKeeps, toRecyclballHT, tva, quantities, products, month });
-
   const subject = `Facture dépôt-vente ${month} — ${clubName}`;
-
   try {
-    // Email au club
     if (clubEmail) {
       await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: { "Authorization": `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: FROM,
-          to: [clubEmail],
-          subject,
-          html,
-        }),
+        body: JSON.stringify({ from: FROM, to: [clubEmail], subject, html }),
       });
     }
-
-    // Email à Recyclball (admin)
     await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { "Authorization": `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from: FROM,
-        to: [ADMIN_EMAIL],
-        subject: `[Admin] ${subject}`,
-        html,
-      }),
+      body: JSON.stringify({ from: FROM, to: [ADMIN_EMAIL], subject: `[Admin] ${subject}`, html }),
     });
-
     res.status(200).json({ success: true });
   } catch (e) {
-    console.error(e);
     res.status(500).json({ error: e.message });
   }
 }
