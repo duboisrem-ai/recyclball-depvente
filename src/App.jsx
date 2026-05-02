@@ -182,6 +182,7 @@ export default function App() {
 
   const [step, setStep] = useState("form");
   const [clubName, setClubName] = useState("");
+  const [clubEmail, setClubEmail] = useState("");
   const [invoiceNum, setInvoiceNum] = useState("");
   const [qtys, setQtys] = useState(() => Object.fromEntries(PRODUCTS.map(p => [p.ref, 0])));
   const [submitting, setSubmitting] = useState(false);
@@ -229,6 +230,7 @@ export default function App() {
     if (!clubName.trim() || !invoiceNum.trim() || caClub === 0) return;
     setSubmitting(true);
     try {
+      // 1. Sauvegarde dans Supabase
       await sb("declarations", {
         method: "POST",
         prefer: "return=minimal",
@@ -241,6 +243,26 @@ export default function App() {
           submitted_at: new Date().toISOString(),
         }),
       });
+
+      // 2. Envoi de la facture par email
+      await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clubName: clubName.trim(),
+          clubEmail: clubEmail.trim(),
+          invoiceNum: invoiceNum.trim(),
+          totalTTC: caClub,
+          toRecyclball,
+          clubKeeps,
+          toRecyclballHT,
+          tva,
+          quantities: qtys,
+          products: PRODUCTS,
+          month: MONTH,
+        }),
+      });
+
       setStep("success");
     } catch (e) {
       showNotif("Erreur lors de l'envoi. Réessaie.", true);
@@ -250,7 +272,7 @@ export default function App() {
   };
 
   const resetForm = () => {
-    setStep("form"); setClubName(""); setInvoiceNum("");
+    setStep("form"); setClubName(""); setClubEmail(""); setInvoiceNum("");
     setQtys(Object.fromEntries(PRODUCTS.map(p => [p.ref, 0])));
   };
 
@@ -421,7 +443,7 @@ export default function App() {
 
           <div className="card">
             <div className="card-title">🏟️ Informations du club</div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
               <div>
                 <label>Nom du club</label>
                 <input type="text" value={clubName} onChange={e => setClubName(e.target.value)} placeholder="Ex : AS Marcq Rugby" />
@@ -430,6 +452,10 @@ export default function App() {
                 <label>N° de facture</label>
                 <input type="text" value={invoiceNum} onChange={e => setInvoiceNum(e.target.value)} placeholder="Ex : 14-05" />
               </div>
+            </div>
+            <div>
+              <label>Email du club <span style={{color:"var(--muted)",fontWeight:400,textTransform:"none",letterSpacing:0}}>(pour recevoir la facture)</span></label>
+              <input type="text" value={clubEmail} onChange={e => setClubEmail(e.target.value)} placeholder="Ex : contact@monclub.fr" />
             </div>
           </div>
 
